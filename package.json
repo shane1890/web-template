@@ -2,9 +2,8 @@
   "name": "name_of_application",
   "version": "0.1.0",
   "description": "enter description here",
-  "dependencies": {
-    "bower": "^1.4.1",
-    "grunt": "^0.4.5"
+  "scripts": {
+    "preinstall": "npm i -g bower && npm i -g grunt && npm i -g grunt-cli"
   },
   "repository": {
     "type": "git",
