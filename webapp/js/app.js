@@ -1,15 +1,17 @@
 require([
     'jquery',
-    'handlebars'
+    'handlebars',
+    'views/test-view'
 ], function(
     $,
-    Handlebars
+    Handlebars,
+    TestView
 ) {
     'use strict';
 
     $(function() {
-        var template = Handlebars.templates['test'];
-        $('#app').html(template());
+        var testView = new TestView({name: 'World'});
+        $('#app').html(testView.render().el);
     });
 
 });

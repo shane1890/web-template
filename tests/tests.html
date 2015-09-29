@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <link href="../bower_components/mocha/mocha.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="mocha"></div>
+
+    <script type="text/javascript" src="../bower_components/chai/chai.js"></script>
+    <script type="text/javascript" src="../bower_components/mocha/mocha.js"></script>
+    <script type="text/javascript" src="../public/js/deps.min.js"></script>
+    <script type="text/javascript" src="../public/js/templates.js"></script>
+
+    <script>
+
+        // for convenience
+        assert = chai.assert;
+
+        mocha.setup('bdd');
+
+        // so we can include our modules like normal
+        requirejs.config({
+            baseUrl: '../webapp/js'
+        });
+
+        // if we don't do this, no tests will run;
+        // we need to ensure all require module
+        // load before we run our tests
+        describe('Test Setup', function() {
+            it('should initialize', function(done) {
+                require([], function() { done(); });
+            });
+        });
+
+        // we have to give a little delay to ensure require has done its thing
+        _.delay(function() {
+            // Only tests run in real browser, injected script run if options.run == true
+            if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+                mocha.run();
+            }
+        }, 100);
+
+    </script>
+
+    <!-- include all tests here -->
+    <script type="text/javascript" src="js/views/test-view.mocha.js"></script>
+</body>
+</html>

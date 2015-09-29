@@ -12,7 +12,6 @@ module.exports = function (grunt) {
                     optimize: 'none',
                     baseUrl: 'webapp/js',
                     name: 'app.js',
-                    //mainConfigFile: 'webapp/require-config.js',
                     out: 'public/js/application.js'
                 }
             }
@@ -98,6 +97,20 @@ module.exports = function (grunt) {
             }
         },
 
+        mocha: {
+            test: {
+                src: ['tests/**/*.html'],
+                dest: './test/output/xunit.out',
+                options: {
+                    log: true,
+                    run: true,
+                    logErrors: true,
+                    reporter: 'XUnit',
+                    webSecurityEnabled: false
+                }
+            }
+        },
+
         watch: {
             grunt: {
                 files: ['Gruntfile.js'],
@@ -105,36 +118,24 @@ module.exports = function (grunt) {
             },
             copy: {
                 files: ['webapp/img/**', 'webapp/html/**'],
-                tasks: ['copy'],
-                options: {
-                    atBegin: true
-                }
+                tasks: ['copy']
             },
             handlebars: {
                 files: ['webapp/templates/**/*.handlebars'],
-                tasks: ['handlebars', 'concat', 'uglify'],
-                options: {
-                    atBegin: true
-                }
+                tasks: ['handlebars', 'concat', 'uglify']
             },
             sass: {
                 files: ['webapp/scss/**'],
-                tasks: ['sass'],
-                options: {
-                    atBegin: true
-                }
+                tasks: ['sass']
             },
-            requirejs: {
-                files: ['webapp/js/**'],
-                tasks: ['requirejs', 'concat', 'uglify'],
-                options: {
-                    atBegin: true
-                }
+            javascript: {
+                files: ['webapp/js/**', 'tests/js/**'],
+                tasks: ['requirejs', 'concat', 'uglify', 'mocha']
             }
         }
     });
 
-
+    grunt.loadNpmTasks('grunt-mocha');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -144,6 +145,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-requirejs');
     grunt.loadNpmTasks('grunt-contrib-handlebars');
 
-    grunt.registerTask('build', ['clean', 'requirejs', 'handlebars', 'concat', 'uglify', 'sass', 'copy']);
+    grunt.registerTask('build', ['clean', 'requirejs', 'handlebars', 'concat', 'uglify', 'sass', 'copy', 'mocha']);
     grunt.registerTask('default', ['build', 'watch']);
 };

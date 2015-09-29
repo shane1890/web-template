@@ -1,8 +1,7 @@
 {
   "name": "NAME OF APPLICATION",
   "version": "0.1.0",
-  "authors": [
-  ],
+  "authors": [],
   "description": "DESCRIPTION OF APPLICATION",
   "ignore": [
     "**/.*",
@@ -16,6 +15,8 @@
     "handlebars": "~3.0.3",
     "jquery": "~2.1.4",
     "lodash": "~3.10.1",
-    "requirejs": "~2.1.20"
+    "requirejs": "~2.1.20",
+    "chai": "~3.2.0",
+    "mocha": "~2.2.5"
   }
 }
